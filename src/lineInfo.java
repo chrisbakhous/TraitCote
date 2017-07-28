@@ -23,6 +23,7 @@ public  class lineInfo { //Cette classe a pour but de donner des informations su
 	public void setLongeurSegement(Double longeurSegement) {
 		this.longeurSegement = longeurSegement;
 	}
+	
 
 	
 }
