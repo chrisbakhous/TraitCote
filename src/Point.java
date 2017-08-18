@@ -1,8 +1,8 @@
 
 public class Point {
 	
-	public Double x;
-	public Double y;
+	private Double x;
+	private Double y;
 	
 	public Point(Double x, Double y) {
 		this.x = x;
@@ -23,6 +23,12 @@ public class Point {
 
 	public void setY(Double y) {
 		this.y = y;
+	}
+	
+	public void DisplayCoordinates()
+	{
+		System.out.print(" x -> " + x );
+		System.out.println("  y -> " + y );
 	}
 
 	
