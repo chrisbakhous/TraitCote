@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class JCanvas  extends JPanel{
 		ArrayList<Segment> SegmentsLine = this.getSegmentsLine();  
 		ArrayList<Segment> Radials = this .getRadials();
 		Double x1,x2,y1,y2;
-		int zoom = 25 ;
+		int zoom = 20 ;
 		Integer H = this.getHeight();
 		Double HEIGHT = H.doubleValue();
 		
@@ -54,7 +55,7 @@ public class JCanvas  extends JPanel{
 			 y2 = HEIGHT -SegmentsLine.get(i).getEndPoint().getY()*zoom;//.intValue()*zoom;
 			 
 			 
-
+			 g.setColor(Color.red);
 			 g.drawLine((int)Math.round(x1),(int)Math.round(y1),(int)Math.round(x2),(int)Math.round(y2));
 			 
 		}
@@ -65,6 +66,7 @@ public class JCanvas  extends JPanel{
 			 y1 = HEIGHT - Radials.get(i).getStartPoint().getY()*zoom;//.intValue()*zoom;
 			 y2 = HEIGHT -Radials.get(i).getEndPoint().getY()*zoom;//.intValue()*zoom;
 			 
+			 g.setColor(Color.black);
 			 g.drawLine((int)Math.round(x1),(int)Math.round(y1),(int)Math.round(x2),(int)Math.round(y2));
 			 
 			 

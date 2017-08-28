@@ -95,7 +95,7 @@ public class Principal {
 				result2.get(i).DisplayCoordinates();
 			}
 		
-		Radial rad2 = new Radial(5.0,2.0,false);
+		Radial rad2 = new Radial(0.5,10.0,true);
 		
 			// TEST RadialsFirstPointCoordinates de la classe Radial
 			ArrayList<Segment> res = rad2.RadialsFirstPointCoordinates (reference);

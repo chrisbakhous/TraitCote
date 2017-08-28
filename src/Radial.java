@@ -50,23 +50,84 @@ public class Radial {
 		Double slope = segment.Slope();
 		System.out.println("Slope --- > " + slope);
 		
-		if(slope == 0) //Segment parallèl à l'axe des abscisses
+		
+		if(slope == 0) //Segment parallèle à l'axe des abscisses
 		{
-			firstPoint.setX(segment.getStartPoint().getX()+distance);
-			firstPoint.setY(segment.getEndPoint().getY());
-			radPoints.add(firstPoint);
-			if(this.sens == false)
+			if(segment.getStartPoint().getX()<segment.getEndPoint().getX())
 			{
-				secondPoint.setX(firstPoint.getX());
-				secondPoint.setY(firstPoint.getY()+this.longueur);
+				firstPoint.setX(segment.getStartPoint().getX()+distance);
+				firstPoint.setY(segment.getEndPoint().getY());
+				radPoints.add(firstPoint);
+				if(this.sens == false)
+				{
+					secondPoint.setX(firstPoint.getX());
+					secondPoint.setY(firstPoint.getY()+this.longueur);
+				}
+				else
+				{
+					secondPoint.setX(firstPoint.getX());
+					secondPoint.setY(firstPoint.getY()-this.longueur);
+				}
 			}
 			else
 			{
-				secondPoint.setX(firstPoint.getX());
-				secondPoint.setY(firstPoint.getY()-this.longueur);
+				firstPoint.setX(segment.getStartPoint().getX()-distance);
+				firstPoint.setY(segment.getEndPoint().getY());
+				radPoints.add(firstPoint);
+				if(this.sens == false)
+				{
+					secondPoint.setX(firstPoint.getX());
+					secondPoint.setY(firstPoint.getY()+this.longueur);
+				}
+				else
+				{
+					secondPoint.setX(firstPoint.getX());
+					secondPoint.setY(firstPoint.getY()-this.longueur);
+				}
 			}
 			
+			
 			radPoints.add(secondPoint);
+		}
+		else if ((slope == Double.NEGATIVE_INFINITY) || (slope == Double.POSITIVE_INFINITY) ) //Segments parallèle à l'ordonné
+		{
+			System.out.println("slope == Double.NEGATIVE_INFINITY");
+			if(segment.getStartPoint().getY()>segment.getEndPoint().getY())
+			{
+				firstPoint.setY(segment.getStartPoint().getY()-distance);
+				firstPoint.setX(segment.getEndPoint().getX());
+				radPoints.add(firstPoint);
+				if(this.sens == false)
+				{
+					secondPoint.setY(firstPoint.getY());
+					secondPoint.setX(firstPoint.getX()+this.longueur);
+				}
+				else
+				{
+					secondPoint.setY(firstPoint.getY());
+					secondPoint.setX(firstPoint.getX()-this.longueur);
+				}
+			}
+			else
+			{
+				firstPoint.setY(segment.getStartPoint().getY()+distance);
+				firstPoint.setX(segment.getEndPoint().getX());
+				radPoints.add(firstPoint);
+				if(this.sens == false)
+				{
+					secondPoint.setY(firstPoint.getY());
+					secondPoint.setX(firstPoint.getX()+this.longueur);
+				}
+				else
+				{
+					secondPoint.setY(firstPoint.getY());
+					secondPoint.setX(firstPoint.getX()-this.longueur);
+				}
+			}
+			
+			
+			radPoints.add(secondPoint);
+			
 		}
 		else
 		{
@@ -74,16 +135,23 @@ public class Radial {
 			//(2) Math.pow((pr.y-startPoint.y ), 2)+Math.pow((pr.x-startPoint.x ),2) = distance*distance ; la distance entre le point du début de segement et le point de la radial		
 			//Les coordonnées du point de la radiale doit satisfaire les deux equations 
 			//De 1) 
-			//pr.y = startPoint.y+slope*(pr.x-startPoint.x); En remplacant pr.y dans l'équation (2) on obtient : 		
-			firstPoint.setX(Math.sqrt((Math.pow(distance,2))/(Math.pow(slope, 2)+1))+segment.getStartPoint().getX());
-			
-
-			//OU firstPoint.setX(distance/Math.sqrt((Math.pow(slope, 2))+1)+segment.getStartPoint().getX());
-
-
-			firstPoint.setY(slope*(Math.sqrt((Math.pow(distance, 2))/(Math.pow(slope, 2)+1)))+segment.getStartPoint().getY());
-
-			//OU firstPoint.setY(slope*(firstPoint.getX()-segment.getStartPoint().getX())+segment.getStartPoint().getY());
+			//pr.y = startPoint.y+slope*(pr.x-startPoint.x); En remplacant pr.y dans l'équation (2) on obtient : 
+				if(segment.getStartPoint().getX() > segment.getEndPoint().getX())//27/08/2017
+				{
+					firstPoint.setX(-Math.sqrt((Math.pow(distance,2))/(Math.pow(slope, 2)+1))+segment.getStartPoint().getX());
+					//OU firstPoint.setX(distance/Math.sqrt((Math.pow(slope, 2))+1)+segment.getStartPoint().getX());
+					firstPoint.setY(-slope*(Math.sqrt((Math.pow(distance, 2))/(Math.pow(slope, 2)+1)))+segment.getStartPoint().getY());
+					//OU firstPoint.setY(slope*(firstPoint.getX()-segment.getStartPoint().getX())+segment.getStartPoint().getY());
+				}
+				else
+				{
+					firstPoint.setX(Math.sqrt((Math.pow(distance,2))/(Math.pow(slope, 2)+1))+segment.getStartPoint().getX());					
+					//OU firstPoint.setX(distance/Math.sqrt((Math.pow(slope, 2))+1)+segment.getStartPoint().getX());
+					firstPoint.setY(slope*(Math.sqrt((Math.pow(distance, 2))/(Math.pow(slope, 2)+1)))+segment.getStartPoint().getY());
+					//OU firstPoint.setY(slope*(firstPoint.getX()-segment.getStartPoint().getX())+segment.getStartPoint().getY());
+				}
+				
+		
 
 
 			radPoints.add(firstPoint);
